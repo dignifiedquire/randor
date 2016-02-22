@@ -1,0 +1,19 @@
+{
+  "name": "randor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "DEBUG=* node index.js"
+  },
+  "keywords": [],
+  "author": "Friedel Ziegelmayer <dignifiedquire@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "bl": "^1.1.2",
+    "debug": "^2.2.0",
+    "ipfs-api": "^2.13.1",
+    "power-assert": "^1.2.0",
+    "random-string": "^0.1.2"
+  }
+}
