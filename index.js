@@ -5,6 +5,7 @@ const assert = require('power-assert')
 const bl = require('bl')
 const randomString = require('random-string')
 const debug = require('debug')
+const Promise = require('bluebird')
 
 const log = debug('randor')
 
@@ -57,19 +58,20 @@ const instantiateArgs = (arg) => {
 
 const exec = (ops) => {
   log('Executing', ops)
-  return Promise.all(
-    ops
-      .map((type) => OPERATIONS[type])
-      .map((op) => {
-        const args = op.args.map(instantiateArgs)
-        log('Executing %s', op.cmd, args)
-        return ipfs[op.cmd].apply(ipfs, args)
-          .then(function () {
-            return op.validator.apply(null, [args, arguments])
-          })
-      })
+  return Promise.mapSeries(
+    ops.map((type) => OPERATIONS[type]),
+    (op) => {
+      const args = op.args.map(instantiateArgs)
+      log('Executing %s', op.cmd, args)
+
+      return ipfs[op.cmd].apply(ipfs, args)
+        .then(function () {
+          return op.validator.apply(null, [args, arguments])
+        })
+    }
   )
 }
+
 const randomInclusive = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min
 }

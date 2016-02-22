@@ -15,5 +15,8 @@
     "ipfs-api": "^2.13.1",
     "power-assert": "^1.2.0",
     "random-string": "^0.1.2"
+  },
+  "devDependencies": {
+    "bluebird": "^3.3.1"
   }
 }
