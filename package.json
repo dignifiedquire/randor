@@ -4,19 +4,22 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "DEBUG=* node index.js"
+    "start": "DEBUG=* node index.js",
+    "lint": "standard ."
   },
   "keywords": [],
   "author": "Friedel Ziegelmayer <dignifiedquire@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "bl": "^1.1.2",
+    "bluebird": "^3.3.1",
     "debug": "^2.2.0",
     "ipfs-api": "^2.13.1",
     "power-assert": "^1.2.0",
-    "random-string": "^0.1.2"
+    "random-string": "^0.1.2",
+    "require-dir": "^0.3.0"
   },
   "devDependencies": {
-    "bluebird": "^3.3.1"
+    "standard": "^6.0.7"
   }
 }
