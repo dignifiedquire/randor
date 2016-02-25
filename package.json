@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "DEBUG=* node index.js",
-    "lint": "standard ."
+    "start": "IPFS_EXEC=$GOPATH/bin/ipfs DEBUG=randor:* node index.js",
+    "lint": "standard"
   },
   "keywords": [],
   "author": "Friedel Ziegelmayer <dignifiedquire@gmail.com>",
@@ -14,14 +14,19 @@
     "bl": "^1.1.2",
     "bluebird": "^3.3.1",
     "debug": "^2.2.0",
+    "espower-loader": "^1.0.0",
     "ipfs-api": "^2.13.1",
+    "ipfsd-ctl": "^0.8.3",
     "lodash": "^4.5.1",
     "power-assert": "^1.2.0",
     "quick_check": "^0.7.0",
-    "random-string": "^0.1.2",
     "require-dir": "^0.3.0"
   },
   "devDependencies": {
     "standard": "^6.0.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dignifiedquire/randor"
   }
 }
