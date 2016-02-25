@@ -15,7 +15,9 @@
     "bluebird": "^3.3.1",
     "debug": "^2.2.0",
     "ipfs-api": "^2.13.1",
+    "lodash": "^4.5.1",
     "power-assert": "^1.2.0",
+    "quick_check": "^0.7.0",
     "random-string": "^0.1.2",
     "require-dir": "^0.3.0"
   },
