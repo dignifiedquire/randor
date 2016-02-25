@@ -4,8 +4,11 @@ require('espower-loader')({
   cwd: process.cwd(),
   pattern: 'lib/**/*.js'
 })
+const Promise = require('bluebird')
 const ipfsd = require('ipfsd-ctl')
 const requireDir = require('require-dir')
+const fs = Promise.promisifyAll(require('fs'))
+const path = require('path')
 
 const exec = require('./lib/exec')
 const generate = require('./lib/generate')
@@ -20,15 +23,40 @@ const daemon = () => new Promise((resolve, reject) => {
     })
   })
 })
+
+let commandCount
+let commandList
+
+if (process.argv.length > 2) {
+  const filename = process.argv[2]
+  commandCount = parseInt(filename.split('-')[0], 10)
+  commandList = JSON.parse(fs.readFileSync(filename, 'utf8'))
+} else {
+  commandCount = 1000
+  commandList = generate(OPERATIONS, commandCount)
+}
+
 daemon()
-  .then((ipfs) => {
-    return exec(OPERATIONS, ipfs, generate(OPERATIONS, 10))
-  })
+  .then((ipfs) => exec(ipfs, commandList))
   .then(() => {
     console.log('SUCCESS')
     process.exit()
   })
   .catch((err) => {
+    console.log('FAILURE')
     console.error(err.message)
-    process.exit(1)
+
+    const fileName = `${commandCount}-${+new Date()}.json`
+
+    return fs.writeFileAsync(
+      fileName,
+      JSON.stringify(commandList, null, 2),
+      'utf8'
+    )
+      .then(() => {
+        console.log('Wrote commands %s', fileName)
+      })
+      .finally(() => {
+        process.exit(1)
+      })
   })
