@@ -8,7 +8,6 @@ const Promise = require('bluebird')
 const ipfsd = require('ipfsd-ctl')
 const requireDir = require('require-dir')
 const fs = Promise.promisifyAll(require('fs'))
-const path = require('path')
 
 const exec = require('./lib/exec')
 const generate = require('./lib/generate')
@@ -45,6 +44,7 @@ daemon()
   .catch((err) => {
     console.log('FAILURE')
     console.error(err.message)
+    console.error(err.stack)
 
     const fileName = `${commandCount}-${+new Date()}.json`
 
