@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "IPFS_EXEC=$GOPATH/bin/ipfs DEBUG=randor:* node index.js",
+    "start": "IPFS_EXEC=$GOPATH/bin/ipfs node index.js",
+    "start:debug": "DEBUG=randor:* npm start",
     "lint": "standard"
   },
   "keywords": [],
@@ -15,6 +16,7 @@
     "bluebird": "^3.3.1",
     "debug": "^2.2.0",
     "espower-loader": "^1.0.0",
+    "gauge": "^1.2.7",
     "ipfs-api": "^2.13.1",
     "ipfsd-ctl": "^0.8.3",
     "lodash": "^4.5.1",

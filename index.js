@@ -31,7 +31,7 @@ if (process.argv.length > 2) {
   commandCount = parseInt(filename.split('-')[0], 10)
   commandList = JSON.parse(fs.readFileSync(filename, 'utf8'))
 } else {
-  commandCount = 1000
+  commandCount = 1000 * 100
   commandList = generate(OPERATIONS, commandCount)
 }
 
@@ -48,11 +48,7 @@ daemon()
 
     const fileName = `${commandCount}-${+new Date()}.json`
 
-    return fs.writeFileAsync(
-      fileName,
-      JSON.stringify(commandList, null, 2),
-      'utf8'
-    )
+    return fs.writeFileAsync(fileName, JSON.stringify(commandList))
       .then(() => {
         console.log('Wrote commands %s', fileName)
       })
