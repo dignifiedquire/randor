@@ -31,7 +31,7 @@ if (process.argv.length > 2) {
   commandCount = parseInt(filename.split('-')[0], 10)
   commandList = JSON.parse(fs.readFileSync(filename, 'utf8'))
 } else {
-  commandCount = 1000 * 100
+  commandCount = 100 // * 1000
   commandList = generate(OPERATIONS, commandCount)
 }
 
