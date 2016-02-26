@@ -20,10 +20,15 @@ module.exports = Command.extend({
       type: 'boolean',
       default: false,
       desc: 'Run forever, like you mean it'
+    },
+    size: {
+      type: 'boolean',
+      default: false,
+      desc: 'Log the repo size every second'
     }
   },
 
-  run (limit, berserk) {
+  run (limit, berserk, size) {
     let gauge = new Gauge()
     let counter = 0
     const runners = [
@@ -43,7 +48,7 @@ module.exports = Command.extend({
       gauge.show(runners, 0.0001)
     }
 
-    randor(limit)
+    randor(limit, size)
       .each(() => {
         counter++
 
@@ -53,13 +58,11 @@ module.exports = Command.extend({
           gauge.show(`${runners}  ${counter}/${limit}`, counter / limit)
         }
       })
-      .errors((err) => {
-        if (err) {
-          console.error(`IPFS fails ${emoji('crying_cat_face')}`)
-          console.error(err)
-          console.error(err.stack)
-          process.exit(1)
-        }
+      .stopOnError((err) => {
+        console.error(`IPFS fails ${emoji('crying_cat_face')}`)
+        console.error(err)
+        console.error(err.stack)
+        process.exit(1)
       })
       .done(() => {
         console.log(`IPFS is awesome ${emoji('smiley_cat')}`)
