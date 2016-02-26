@@ -17,6 +17,7 @@
     "debug": "^2.2.0",
     "espower-loader": "^1.0.0",
     "gauge": "^1.2.7",
+    "highland": "^2.6.0",
     "ipfs-api": "^2.13.1",
     "ipfsd-ctl": "^0.8.3",
     "lodash": "^4.5.1",
