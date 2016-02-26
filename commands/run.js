@@ -3,6 +3,7 @@
 const Command = require('ronin').Command
 const Gauge = require('gauge')
 
+const emoji = require('../lib/utils').emoji
 const randor = require('../lib')
 
 module.exports = Command.extend({
@@ -25,16 +26,21 @@ module.exports = Command.extend({
   run (limit, berserk) {
     let gauge = new Gauge()
     let counter = 0
+    const runners = [
+      emoji('cat2'),
+      emoji('cat2'),
+      emoji('cat2')
+    ].join('  ')
 
     if (berserk) {
-      console.log('Let\'s do this, berserk style!')
+      console.log(`Let's do this, berserk style! ${emoji('scream_cat')} ${emoji('scream_cat')} ${emoji('scream_cat')}`)
       limit = undefined
 
-      gauge.show('Executing', 1)
+      gauge.show(runners, 1)
     } else {
-      console.log('Let\'s do this, %s times!', limit)
+      console.log(`Let's do this, ${limit} times! ${emoji('joy_cat')}`)
 
-      gauge.show('Executing', 0.0001)
+      gauge.show(runners, 0.0001)
     }
 
     randor(limit)
@@ -42,21 +48,21 @@ module.exports = Command.extend({
         counter++
 
         if (berserk) {
-          gauge.show(`Executing: ${counter}`)
+          gauge.show(`${runners}  ${counter}`)
         } else {
-          gauge.show(`Executing: ${counter}/${limit}`, counter / limit)
+          gauge.show(`${runners}  ${counter}/${limit}`, counter / limit)
         }
       })
       .errors((err) => {
         if (err) {
-          console.error('IPFS fails :cry:')
+          console.error(`IPFS fails ${emoji('crying_cat_face')}`)
           console.error(err)
           console.error(err.stack)
           process.exit(1)
         }
       })
       .done(() => {
-        console.log('IPFS is awesome :smiley_cat:')
+        console.log(`IPFS is awesome ${emoji('smiley_cat')}`)
         process.exit()
       })
   }
