@@ -14,20 +14,38 @@ module.exports = Command.extend({
       alias: 'l',
       default: 100,
       desc: 'How many operations should be run'
+    },
+    berserk: {
+      type: 'boolean',
+      default: false,
+      desc: 'Run forever, like you mean it'
     }
   },
 
-  run (limit) {
-    console.log('Let\'s do this, %s times!', limit)
-    const gauge = new Gauge()
+  run (limit, berserk) {
+    let gauge = new Gauge()
     let counter = 0
 
-    gauge.show('Executing', 0.0001)
+    if (berserk) {
+      console.log('Let\'s do this, berserk style!')
+      limit = undefined
+
+      gauge.show('Executing', 1)
+    } else {
+      console.log('Let\'s do this, %s times!', limit)
+
+      gauge.show('Executing', 0.0001)
+    }
 
     randor(limit)
       .each(() => {
         counter++
-        gauge.show(`Executing: ${counter}/${limit}`, counter / limit)
+
+        if (berserk) {
+          gauge.show(`Executing: ${counter}`)
+        } else {
+          gauge.show(`Executing: ${counter}/${limit}`, counter / limit)
+        }
       })
       .errors((err) => {
         if (err) {
