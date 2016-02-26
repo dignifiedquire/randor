@@ -4,9 +4,9 @@
 
 ## Running
 
-You need will node >= 4 and npm >= 3. Also this assumes that ipfs@0.4 is installed in your `$GOPATH/bin`.
+You need will node >= 4 and npm >= 3.
 
 ```bash
 $ npm install
-$ npm start
+$ IPFS_EXEC=$GOPATH/bin/ipfs bin/randor run
 ```

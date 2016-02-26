@@ -1,14 +1,20 @@
 {
   "name": "randor",
   "version": "1.0.0",
-  "description": "",
+  "description": "Big Bad Tests for IPFS",
   "main": "index.js",
+  "bin": {
+    "randor": "./bin/randor"
+  },
   "scripts": {
-    "start": "IPFS_EXEC=$GOPATH/bin/ipfs node index.js",
-    "start:debug": "DEBUG=randor:* npm start",
     "lint": "standard"
   },
-  "keywords": [],
+  "keywords": [
+    "ipfs",
+    "testing",
+    "cli",
+    "randomised"
+  ],
   "author": "Friedel Ziegelmayer <dignifiedquire@gmail.com>",
   "license": "MIT",
   "dependencies": {
@@ -23,7 +29,9 @@
     "lodash": "^4.5.1",
     "power-assert": "^1.2.0",
     "quick_check": "^0.7.0",
-    "require-dir": "^0.3.0"
+    "require-dir": "^0.3.0",
+    "ronin": "^0.3.11",
+    "vorpal": "^1.9.5"
   },
   "devDependencies": {
     "standard": "^6.0.7"
