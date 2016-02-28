@@ -25,10 +25,16 @@ module.exports = Command.extend({
       type: 'boolean',
       default: false,
       desc: 'Log the repo size every second'
+    },
+    parallel: {
+      type: 'number',
+      alias: 'p',
+      default: 1,
+      desc: 'How many parallel operations to execute'
     }
   },
 
-  run (limit, berserk, size) {
+  run (limit, berserk, size, parallel) {
     let gauge = new Gauge()
     let counter = 0
     const runners = [
@@ -48,7 +54,7 @@ module.exports = Command.extend({
       gauge.show(runners, 0.0001)
     }
 
-    randor(limit, size)
+    randor(limit, size, parallel)
       .each(() => {
         counter++
 
