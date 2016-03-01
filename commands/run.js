@@ -31,10 +31,22 @@ module.exports = Command.extend({
       alias: 'p',
       default: 1,
       desc: 'How many parallel operations to execute'
+    },
+    write: {
+      type: 'boolean',
+      alias: 'w',
+      default: true,
+      desc: 'Should the operations be stored to disk'
+    },
+    read: {
+      type: 'boolean',
+      alias: 'r',
+      default: false,
+      desc: 'Should the operations be read from disk'
     }
   },
 
-  run (limit, berserk, size, parallel) {
+  run (limit, berserk, size, parallel, write, read) {
     let gauge = new Gauge()
     let counter = 0
     const runners = [
@@ -54,7 +66,7 @@ module.exports = Command.extend({
       gauge.show(runners, 0.0001)
     }
 
-    randor(limit, size, parallel)
+    randor(limit, size, parallel, write, read)
       .each(() => {
         counter++
 
@@ -71,6 +83,7 @@ module.exports = Command.extend({
         process.exit(1)
       })
       .done(() => {
+        gauge.hide()
         console.log(`IPFS is awesome ${emoji('smiley_cat')}`)
         process.exit()
       })
