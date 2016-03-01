@@ -34,7 +34,7 @@ You can pass the following options to `randor run`,
 
 #### `--read -r`
 
-- **Default:** `true`
+- **Default:** `false`
 - **Description:** Read operations from a log in `store.json`.
 
 #### `--size`
