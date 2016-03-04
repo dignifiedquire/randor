@@ -47,3 +47,13 @@ You can pass the following options to `randor run`,
 - **Default:** `1`
 - **Description:** Execute operations in parallel. `1` is equivalent to
   serial execution.
+
+### `--operations <list of ops> -o <list of ops`
+
+- **Default:** `undefined`
+- **Description:** Execute only these operations. List should be seperated by `,`. Currently available are
+  - `add`
+  - `files-write`
+  - `object-patch-add-link`
+  - `object-patch-append-data`
+  - `pin-rm`

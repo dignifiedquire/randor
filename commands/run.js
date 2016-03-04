@@ -43,10 +43,14 @@ module.exports = Command.extend({
       alias: 'r',
       default: false,
       desc: 'Should the operations be read from disk'
+    },
+    operations: {
+      type: 'string',
+      alias: 'o'
     }
   },
 
-  run (limit, berserk, size, parallel, write, read) {
+  run (limit, berserk, size, parallel, write, read, operations) {
     let gauge = new Gauge()
     let counter = 0
     const runners = [
@@ -54,6 +58,10 @@ module.exports = Command.extend({
       emoji('cat2'),
       emoji('cat2')
     ].join('  ')
+
+    if (operations) {
+      operations = operations.split(',').map((op) => op.trim())
+    }
 
     if (berserk) {
       console.log(`Let's do this, berserk style! ${emoji('scream_cat')} ${emoji('scream_cat')} ${emoji('scream_cat')}`)
@@ -66,7 +74,7 @@ module.exports = Command.extend({
       gauge.show(runners, 0.0001)
     }
 
-    randor(limit, size, parallel, write, read)
+    randor(limit, size, parallel, write, read, operations)
       .each(() => {
         counter++
 
