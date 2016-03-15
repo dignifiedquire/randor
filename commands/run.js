@@ -46,11 +46,17 @@ module.exports = Command.extend({
     },
     operations: {
       type: 'string',
-      alias: 'o'
+      alias: 'o',
+      desc: 'Whitelist specific operations'
+    },
+    daemon: {
+      type: 'string',
+      default: '',
+      desc: 'JSON.parse\'able string of configuration to be passed to the daemon'
     }
   },
 
-  run (limit, berserk, size, parallel, write, read, operations) {
+  run (limit, berserk, size, parallel, write, read, operations, daemon) {
     let gauge = new Gauge()
     let counter = 0
     const runners = [
@@ -74,7 +80,12 @@ module.exports = Command.extend({
       gauge.show(runners, 0.0001)
     }
 
-    randor(limit, size, parallel, write, read, operations)
+    let daemonOpts = {}
+    if (daemon) {
+      daemonOpts = JSON.parse(daemon)
+    }
+
+    randor(limit, size, parallel, write, read, operations, daemonOpts)
       .each(() => {
         counter++
 

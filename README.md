@@ -57,3 +57,9 @@ You can pass the following options to `randor run`,
   - `object-patch-add-link`
   - `object-patch-append-data`
   - `pin-rm`
+
+### `--daemon <json-parsable-string>`
+
+- **Default:** `''`
+- **Description:** Pass configuration to the spawned daemon. For all options see [ipfsd-ctl](https://github.com/ipfs/js-ipfsd-ctl).
+- **Example:** Setting the repo path: `--daemon='{"repoPath": "/my/tmp/repo"}'`
